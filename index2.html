@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Streaming will begin in Short time.....</h1>
+    <script type="text/javascript">
+        const playstore=`https://play.google.com/store/apps/details?id=in.fifthventricle.app`;
+        const appstore = `https://www.google.com`;
+        const get_Stream_id = (url) =>{
+            try {
+                var streamID = url.searchParams.get("streamid");
+                return streamID;
+            } catch (error) {
+                console.log("there was some error in generating stream id"+error);
+                return 0;
+            }
+        }
+
+        const get_target_device = (url) =>{
+            try {
+                var target_device = url.searchParams.get("target");
+                return target_device.toString();
+            } catch (error) {
+                console.log("There was some error in getting device type "+error);
+                return 0
+            }
+            
+
+        }
+        const  getMobileOperatingSystem =()=> {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Windows Phone must come first because its UA also contains "Android"
+            if (/windows phone/i.test(userAgent)) {
+                return "Windows Phone";
+            }
+
+            if (/android/i.test(userAgent)) {
+                return "Android";
+            }
+
+            // iOS detection from: http://stackoverflow.com/a/9039885/177710
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return "iOS";
+            }
+
+            return "unknown";
+        }
+
+        var window_location_url = window.location.href;
+        var url = new URL(window_location_url);
+        var device_type = getMobileOperatingSystem()
+        if(device_type!=0){
+            switch(device_type.toLowerCase()){
+                case `android`: 
+                    window.location.replace(playstore);
+                    break;
+                case `ios`:
+                    window.location.replace(appstore);
+                    break;
+                default:
+                    alert("only Android and ios device are supported for this time");
+                    break;
+            }
+            
+        }
+    </script>
+</body>
+</html>

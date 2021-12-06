@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	<script src="./pcmPlayer.js"></script>
+</head>
+<body>
+    <input type='file'>
+
+    <script>
+        const input = document.querySelector('input')
+        const reader = new FileReader();
+        const fileByteArray = [];
+
+        input.addEventListener('change', (e) => {
+        reader.readAsArrayBuffer(e.target.files[0]);
+        reader.onloadend = (evt) => {
+            if (evt.target.readyState === FileReader.DONE) {
+            const arrayBuffer = evt.target.result,
+                array = new Uint8Array(arrayBuffer);
+            for (const a of array) {
+                fileByteArray.push(a);
+            }
+            console.log(fileByteArray)
+
+            // initializing player
+            const player = new PCMPlayer({
+                    encoding: '16bitInt',
+                    channels: 1,
+                    sampleRate: 44100,
+                    flushingTime: 2000
+                });
+            
+            var temp = [];
+            var tempLength = 0;
+            var convertedData = new Uint8Array(fileByteArray)
+            player.feed(convertedData);
+            // for(let i =0 ;i < fileByteArray.length;i++){
+            //     if (tempLength>10001){
+            //         var convertedData = new Uint8Array(temp)
+            //         player.feed(convertedData);
+            //         tempLength =0 ;
+            //     }else{
+            //         temp.push(fileByteArray[i]);
+            //         tempLength++;
+            //     }
+            // }
+            
+
+            }
+        }
+        })
+    </script>
+</body>
+</html>

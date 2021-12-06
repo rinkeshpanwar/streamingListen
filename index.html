@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Fifth ventricle&mdash; Listen live streaming</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description"
+		content="This guide will tell you how to install fifth ventricle application in andriod application succesfully without playstore" />
+
+	<link rel="icon" href="../img/favi.png" />
+
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="../css/owl.carousel.css">
+	<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="../css/animate.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+		integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="../css/style.css">
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+	<!-- otp css -->
+	<link rel="stylesheet" href="./style.css">
+	<!-- <link rel="stylesheet" href="./index.css">  -->
+	<script src="./pcmPlayer.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+	<script src="./script.js"></script>
+	
+	<!-- allow mixed content -->
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+	<style>
+		#fh5co-hero-wrapper {
+			height: 500px;
+			width: 100%;
+			background: #090b1c;
+			border-radius: 0 0 50% 50% / 4%;
+		}
+
+		body {
+			background: #090b1c;
+		}
+
+		.center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.digit-group input {
+			width: 50px;
+			height: 50px;
+			background-color: #18182a;
+			border: none;
+			line-height: 50px;
+			text-align: center;
+			font-size: 24px;
+			font-family: "Raleway", sans-serif;
+			font-weight: 200;
+			color: white;
+			margin: 0 2px;
+		}
+
+		.digit-group .splitter {
+			padding: 0 5px;
+			color: white;
+			font-size: 24px;
+		}
+	</style>
+</head>
+
+<body>
+
+
+	<div id="page-wrap">
+
+		<div id="fh5co-hero-wrapper">
+			<nav class="container navbar navbar-expand-lg main-navbar-nav navbar-light">
+				<img class="logoPng" src="../img/logo.png" / style="height: 90px;width: 340px;">
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+				</div>
+			</nav>
+
+			<div class="container fh5co-hero-inner" style="margin-left: auto;margin-right: auto;">
+				<div class="center">
+					<h1 class="animated fadeIn wow" style="    color: #fff;
+					font-weight: 300;
+					font-size: 44px;
+					letter-spacing: 2px;" data-wow-delay="0.4s">Live Remote Auscaltation .</h1>
+				</div>
+
+				<div class="center">
+					<p class="animated fadeIn wow" style="    font-size: 16px;
+				color: #fff;
+				margin-top: 30px;
+				margin-bottom: 30px;
+				line-height: 2em;" data-wow-delay="0.67s">To Listen live streaming by chesto using Fifth Ventricle app enter otp in
+						text field. </p>
+				</div>
+
+				<div style="height: 100px; width: 100%;" id="parent-block">
+
+					<div id="streamAnimation" style="display: flex; justify-content: center; align-items:center;">
+						<lottie-player src="https://assets3.lottiefiles.com/packages/lf20_vxsjjmqm.json"
+							background="transparent" speed="1" style="width: 400px;  " loop autoplay></lottie-player>
+					</div>
+
+
+					<div id="otpField" style="display: flex; justify-content: center;">
+						<!-- <form method="get" class="digit-group" data-group-name="digits" data-autosubmit="false"
+							autocomplete="off">
+							<input type="text" style="width: 180px;" id="digit-1" name="digit-1" data-next="digit-2"
+								placeholder="Enter otp" />
+						</form> -->
+
+						<form method="get" class="digit-group" data-group-name="digits" data-autosubmit="false"
+							autocomplete="off">
+							<input type="text" id="digit-1" name="digit-1" data-next="digit-2" />
+							<input type="text" id="digit-2" name="digit-2" data-next="digit-3"
+								data-previous="digit-1" />
+							<input type="text" id="digit-3" name="digit-3" data-next="digit-4"
+								data-previous="digit-2" />
+							<span class="splitter">&ndash;</span>
+							<input type="text" id="digit-4" name="digit-4" data-next="digit-5"
+								data-previous="digit-3" />
+							<input type="text" id="digit-5" name="digit-5" data-next="digit-6"
+								data-previous="digit-4" />
+							<input type="text" id="digit-6" name="digit-6" data-previous="digit-5" />
+						</form>
+						<script type="text/javascript">
+							const get_Stream_id = (url) => {
+								try {
+									var streamID = url.searchParams.get("streamid");
+									return streamID;
+								} catch (error) {
+									console.log("there was some error in generating stream id" + error);
+									return false;
+								}
+							}
+							var window_location_url = window.location.href;
+							var url = new URL(window_location_url);
+							var streamID = get_Stream_id(url);
+							if (streamID) {
+
+								var splited = streamID.toString().split("");
+								splited.map((item, index) => {
+									var otpId = document.getElementById("digit-" + (index + 1));
+									otpId.value = item
+								});
+
+
+
+							}
+						</script>
+					</div>
+				</div>
+
+
+
+				<div style="display: flex; justify-content: center; align-items:center; margin-top: 20px;">
+					<button id="connectionStream" class="btn btn-md download-btn-first wow fadeInLeft animated"
+						data-wow-delay="0.85s" onclick="toggleStreaming()"
+						style="width: 120px; height: 50px;">Start</button>
+					<button id="statusPlaying" class="btn btn-md features-btn-first animated fadeInLeft wow"
+						data-wow-delay="0.95s" onclick="togglePlay()" style="width: 120px; height: 50px;">Play</button>
+				</div>
+			</div>
+
+
+		</div>
+
+	</div>
+	<br><br><br>
+
+
+
+	<!-- ==========================================================================================================
+													 BOTTOM
+		========================================================================================================== -->
+
+	<div id="fh5co-download" class="fh5co-bottom-outer">
+		<div class="overlay">
+			<div class="container fh5co-bottom-inner">
+				<div class="row">
+					<div class="col-sm-6">
+						<h1>How to download the app?</h1>
+						<p>You can easily download our app by clicking on below link make sure unknown source
+							installation is turned on in your mobile.Scroll up to see how to turned on in your
+							mobile.</p>
+						<a class="wow fadeIn animated" data-wow-delay="0.25s" href="#" onclick="DownloadNow()"><img
+								class="google-play-btn" src="../img/Downloadnow.png" alt="Download now"></a>
+						<a class="wow fadeIn animated" data-wow-delay="0.67s" href="#" onclick="DownloadNow()"><img
+								class="google-play-btn" src="../img/google-play-icon.png" alt="Google Play Icon"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- ==========================================================================================================
+												   SECTION 7 - SUB FOOTER
+		========================================================================================================== -->
+
+	<footer class="footer-outer">
+		<div class="container footer-inner">
+
+			<div class="footer-three-grid wow fadeIn animated" data-wow-delay="0.66s">
+				<div class="column-1-3">
+					<img src="../img/Fifthventricleqr.png" alt="fifth ventricle">
+
+				</div>
+				<div class="column-2-3">
+					<nav class="footer-nav">
+						<ul>
+							<a href="#" onclick="$('#fh5co-features').goTo();return false;">
+								<li>How to use</li>
+							</a>
+							<a href="#" onclick='DownloadNow()'>
+								<li class="active">Download</li>
+							</a>
+						</ul>
+					</nav>
+				</div>
+				<div class="column-3-3">
+					<div class="social-icons-footer">
+						<a href="https://www.facebook.com/Fifth-Ventricle-111874401166134"><i
+								class="fab fa-facebook-f"></i></a>
+						<a href="https://instagram.com/fifth_ventricle"><i class="fab fa-instagram"></i></a>
+						<a href="https://twitter.com/FifthVentricle"><i class="fab fa-twitter"></i></a>
+					</div>
+				</div>
+			</div>
+
+			<span class="border-bottom-footer"></span>
+
+			<p class="copyright">&copy; Fifth ventricle .</p>
+
+		</div>
+	</footer>
+	<script src="./socket.js"></script> 
+	</div>
+	<script>
+		function DownloadNow() {
+			window.open("https://app.fifthventricle.in/download/android");
+		}
+
+		$('.digit-group').find('input').each(function () {
+			$(this).attr('maxlength', 1);
+			$(this).on('keyup input', function (e) {
+				var parent = $($(this).parent());
+
+				if (e.keyCode === 8 || e.keyCode === 37) {
+					var prev = parent.find('input#' + $(this).data('previous'));
+
+					if (prev.length) {
+						$(prev).select();
+					}
+				} else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 96 && e.keyCode <= 105) || e.keyCode === 39) {
+					var next = parent.find('input#' + $(this).data('next'));
+
+					if (next.length) {
+						$(next).select();
+					} else {
+						if (parent.data('autosubmit')) {
+							parent.submit();
+						}
+					}
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>
