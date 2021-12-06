@@ -41,7 +41,20 @@ PCMPlayer.prototype.getTypedArray = function () {
 };
 
 PCMPlayer.prototype.createContext = function() {
-    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var AudioContext = window.AudioContext // Default
+    || window.webkitAudioContext // Safari and old versions of Chrome
+    || false; 
+
+    if (AudioContext) {
+        // Do whatever you want using the Web Audio API
+        this.audioCtx = new AudioContext();
+        // ...
+    } else {
+        // Web Audio API is not supported
+        // Alert the user
+        alert("Sorry, but the Web Audio API is not supported by your browser. Please, consider upgrading to the latest version or downloading Google Chrome or Mozilla Firefox");
+    }
+    // this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     // context needs to be resumed on iOS and Safari (or it will stay in "suspended" state)
     this.audioCtx.resume();
